@@ -1,0 +1,208 @@
+@charset "UTF-8";
+//定义颜色和字体变量
+$gray: rgb(239,240,244);
+$lightblue: rgb(95,192,205);
+$lightgray: rgb(200,200,200);
+$red: #fb0404;
+$darkblue: #55a8b3;
+$yh: Microsoft YaHei;
+//浏览器前缀模块
+@mixin compatibility($value1, $value2) {
+	-webkit-#{$value1}: $value2;
+	-moz-#{$value1}: $value2;
+	-ms-#{$value1}: $value2;
+	-o-#{$value1}: $value2;
+	#{$value1}: $value2;
+}
+@mixin border($side, $px: 1px, $bcolor: $lightgray) {
+	border#{$side}: $px solid $bcolor;
+}
+//好戏开场了，统一字体
+html {
+	font-size: 625%;
+}
+.g-navbar {
+	width: 100%;
+	line-height: 60px;
+	text-align: center;
+	background-color: $lightblue;
+	.m-switch {
+	//导航条上的开关模块
+		display: inline-block;
+		width: 120px;
+		height: 40px;
+		line-height: 40px;
+		font-size: 0;
+		background-color: $darkblue;
+		border-radius: 5px;
+		input[type="radio"] {
+		//隐藏默认的单选框控件，用u-btn1和2模拟
+			display: none;
+		}
+		.u-btn1 {
+		//btn1默认样式
+			display: inline-block;
+			width: 60px;
+			background-color: $darkblue;
+			border-radius: 5px;
+			color: #fff;
+			font: {
+				size: .16rem;
+				family: $yh;
+			}
+			@include compatibility(transition, 1s)//+1s切换动画
+		}
+		#option1:checked +.u-btn1 {
+		//btn1切换样式
+			background-color: #fff;
+			color: $lightblue;
+		}
+		.u-btn2 {
+		//btn2切换样式
+			@extend .u-btn1;
+			color: #fff;
+		}
+		#option2:checked +.u-btn2 {
+		//btn2切换样式
+			background-color: #fff;
+			color: $lightblue;
+		}
+	}
+	.u-btn {
+	//右边的开关
+		position: absolute;
+	    top: 17px;
+	    right: 14px;
+	    width: 20px;
+	    height: 22px;
+	    border-style: none;
+	    background: 0 -69px url(img/111.png) #5fc0cd;
+	    &:active {
+	    	box-shadow: 0 0 2px 2px $darkblue inset;
+	    }
+	}
+}
+.g-ddmenubox {
+//下拉菜单
+	text-align: center;
+	font-size: 0;
+	@include border(-bottom);
+	.m-ddmenu {
+		position: relative;
+		display: inline-block;
+		width: calc(33% - 4px);
+		height: 40px;
+		overflow: hidden;
+		text-align: center;
+		select {
+			width: calc(100% + 20px);
+			height: 40px;
+			padding-left: 40%\9\0;
+			text-align-last: center;
+			border: none;
+			color: $lightgray;	
+			&:active {
+			box-shadow: 0 0 2px 2px $lightgray inset;
+			}
+		}
+		&:after {
+		//要有倒三角
+			position: absolute;
+			top: 18px;
+			right: 8%;
+			content: " ";
+			width: 0;
+			height: 0;
+			@include border(null, 5px, transparent);
+			@include border(-top, 5px, $lightgray);
+		}
+	}
+	.u-line {
+	//要有分割的细线
+		display: inline-block;
+		width: 1px;
+		height: 30px;
+		margin: 5px 0;
+		background: radial-gradient($lightgray -80%, #fff 100%);
+	}
+}
+//信息栏
+.m-infobox {
+	padding: 0 15px;
+	color: $lightgray;
+	@include border(-bottom, 1px, $lightgray);
+	div {
+		margin: 10px 0;
+	}
+	.u-detail {
+		//中间的日期和价格盒子
+		font-size: .14rem;
+		.t-date {
+			display: inline-block;
+			width: 60%;
+			padding-left: 15px;
+			margin: 0;
+			text-overflow: ellipsis;
+    		overflow: hidden;
+    		white-space: nowrap;
+    		color: #000;
+		}
+		.t-price {
+			display: inline-block;
+			float: right;
+			margin: 0;
+			color: $red;
+		}
+	}
+}
+//底部
+.g-bottomnav {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #f8f8f8;
+	button {
+		border: none;
+	}
+	.u-btn-ce {
+		//中间
+		height: 47px;
+	    width: 47px;
+	    background: url(img/111.png) 0 -21.5px;
+	    vertical-align: top;
+	    &:active {
+    			box-shadow: 0 0 2px 2px $lightgray;
+    		}
+	}
+	.u-btn-ho {
+		//主页
+		margin: 5px 10% 5px 0;
+		background-color: #f8f8f8;
+		&:active {
+    			box-shadow: 0 0 2px 2px $lightgray;
+    		}
+	}
+	.u-btn-my {
+		//我的
+		margin: 5px 0 5px 10%;
+		background-color: #f8f8f8;
+		&:active {
+    			box-shadow: 0 0 2px 2px $lightgray;
+    		}
+	}
+	.u-img-ho {
+		//主页图标
+		height: 22.4px;
+   		width: 22.1px;
+   		margin-bottom: 5px; 
+    	background: url(img/111.png) -25px 0px;
+	}
+	.u-img-my {
+		//我的图标
+		@extend .u-img-ho;
+ 		background: url(img/111.png);
+	}
+}

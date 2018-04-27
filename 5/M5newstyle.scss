@@ -1,0 +1,160 @@
+@charset "UTF-8";
+//定义颜色和字体变量
+$gray: rgb(239,240,244);
+$lightblue: rgb(95,192,205);
+$lightgray: rgb(200,200,200);
+$red: #fb0404;
+$yh: Microsoft YaHei;
+//浏览器前缀模块
+@mixin compatibility($value1, $value2) {
+	-webkit-#{$value1}: $value2;
+	-moz-#{$value1}: $value2;
+	-ms-#{$value1}: $value2;
+	-o-#{$value1}: $value2;
+	#{$value1}: $value2;
+}
+//边框模块
+@mixin border($direction, $width: 1px, $color: $lightgray) {
+	border#{$direction}: $width solid $color;
+}
+//正文，重置字号------------------------------------------------
+html {
+	font-size: 625%;
+}
+//头部导航条
+header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	color: #fff;
+	background-color: $lightblue;
+	font: {
+		size: .2rem;
+		weight: 700;
+		family: $yh;
+	}
+	.u-backbutton {
+		position: absolute;
+		left: 0;
+		padding-left: 15px;
+		height: 50px;
+		line-height: 50px;
+		background-color: transparent;
+		border-style: none;
+		color: #fff;
+		font-size: .16rem;
+	}
+}
+//头像、背景部分
+.g-mainbody1 {
+	margin-top: 50px;
+	position: relative;
+	background: {
+		image: url(img/bg.png);
+		size: 100%;
+		position: center;
+	} 
+	.u-img {
+		margin-left: -20px;
+		@include compatibility(transform, scale(.5));
+		border-radius: 50%;
+	}
+	.m-info {
+		position: absolute;
+		left: 130px;
+		top: 60px;
+		color: #fff;
+		font-size: .12rem;
+		font-family: $yh;
+		.t-name {
+			line-height: .3rem;
+			font-size: .16rem;
+		}
+		.t-age {
+			font-size: .14rem;
+		}
+		.icon-loc {
+			color: $lightblue;
+		}
+	}
+}
+//个人信息部分
+.g-mainbody2 {
+	font-size: .12rem;
+	font-family: $yh;
+	.u-skill {
+		padding: 15px 0;
+		@include border(-bottom);
+		.t-letter {
+			margin-left: 3px;
+			background-color: $lightblue;
+			color: $lightblue;
+		}
+	}
+	.u-skill + .u-ins {
+		color: #000;
+	}
+	.u-ins {
+		margin: 0 10px;
+		padding: 15px 10px;
+		color: $lightgray;
+		@include border(-bottom);
+		a {
+			font-size: .18rem;
+			margin: 0 5px;
+			color: $lightgray;
+		}
+		div {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.box {
+			width: calc(100% - 70px);
+			color: #000;
+		}
+		.t-red {
+			color: $red;
+		}
+		a + span {
+			color: #000;
+		}
+	}
+	.u-ins:last-child {
+		margin-bottom: 50px;
+	}
+}
+//留言和电话按钮
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 50px;
+	font-size: 0;
+	background-color: #fff;
+	.u-message {
+		display: inline-block;
+		cursor: pointer;
+		width: 40%;
+		margin: 7px 5%;
+		padding: 10px 0;
+		border-radius: 5px;
+		border-style: none;
+		background-color: #fff;
+		color: $lightblue;
+		@include border(null, 2px, $lightblue);
+		&:hover {
+			box-shadow: 0 0 2px 2px $lightblue;
+		}
+		&:active {
+			box-shadow: 0 0 2px 2px $lightgray inset;
+		}
+	}
+	.u-call {
+		@extend .u-message;
+		background-color: $lightblue;
+		color: #fff;
+	}
+}
